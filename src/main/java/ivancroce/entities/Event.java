@@ -29,9 +29,10 @@ public class Event {
     private int maxNumParticipants;
 
     // Constructor
-    // da aggiungere dopo public Event() {}
-    public Event(long id, String title, LocalDate eventDate, String description, EventType eventType, int maxNumParticipants) {
-        this.id = id;
+    public Event() {
+    }
+
+    public Event(String title, LocalDate eventDate, String description, EventType eventType, int maxNumParticipants) {
         this.title = title;
         this.eventDate = eventDate;
         this.description = description;
