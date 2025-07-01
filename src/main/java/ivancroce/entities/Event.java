@@ -29,6 +29,7 @@ public class Event {
     private int maxNumParticipants;
 
     // Constructor
+    // JPA needs an empty constructor to create objects for us when we read from the DB
     public Event() {
     }
 

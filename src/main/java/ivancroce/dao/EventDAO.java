@@ -1,6 +1,7 @@
 package ivancroce.dao;
 
 import ivancroce.entities.Event;
+import ivancroce.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -28,5 +29,34 @@ public class EventDAO {
         // 4. commit = write data in the DB
         transaction.commit();
         System.out.println("The event '" + newEvent.getTitle() + "' has been successfully saved in the DB.");
+    }
+
+    // findId method
+    public Event findById(long id) {
+        Event found = em.find(Event.class, id); // Event.class to go look in the right table
+        if (found == null)
+            throw new NotFoundException(id);
+        return found;
+    }
+
+    // delete
+    public void findByIdAndDelete(long id) {
+
+        // Find the event in the DB through the id
+        Event found = this.findById(id);
+
+        // ask em to create a new transaction
+        EntityTransaction transaction = em.getTransaction();
+
+        // begin transaction
+        transaction.begin();
+
+        // Remove the event from the Persistence Context with remove (at this stage it's still not removed)
+        em.remove(found);
+
+        // commit to remove it from the DB
+        transaction.commit();
+
+        System.out.println("Event '" + found.getId() + "' has been successfully deleted.");
     }
 }

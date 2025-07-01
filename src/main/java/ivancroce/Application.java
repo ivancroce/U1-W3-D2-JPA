@@ -3,6 +3,7 @@ package ivancroce;
 import ivancroce.dao.EventDAO;
 import ivancroce.entities.Event;
 import ivancroce.entities.EventType;
+import ivancroce.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -19,8 +20,20 @@ public class Application {
 
         // creating a new event
         Event birthday = new Event("Aldo Baglio's b-day", LocalDate.of(2025, 07, 01), "Big Party!", EventType.PRIVATE, 30);
+        Event concert = new Event("Aldo Baglio's Concert", LocalDate.of(2025, 10, 12), "Music concert", EventType.PUBLIC, 100);
 
-        ed.save(birthday);
+        // ed.save(birthday); // to comment this one otherwise save method keeps creating the event in the DB
+        // ed.save(concert);
+
+        try {
+            Event aldoFromDB = ed.findById(5);
+            System.out.println(aldoFromDB);
+
+            ed.findByIdAndDelete(3);
+
+        } catch (NotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
 
         em.close();
         emf.close();
