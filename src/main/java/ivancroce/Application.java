@@ -11,7 +11,7 @@ import jakarta.persistence.Persistence;
 import java.time.LocalDate;
 
 public class Application {
-
+    // 1. STEP: create the emf to connect the DB
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("events_management_pu");
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class Application {
             Event aldoFromDB = ed.findById(5);
             System.out.println(aldoFromDB);
 
-            ed.findByIdAndDelete(3);
+            // ed.findByIdAndDelete(3); to delete
 
         } catch (NotFoundException ex) {
             System.out.println(ex.getMessage());
